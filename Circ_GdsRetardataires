@@ -1,0 +1,34 @@
+####################
+GRANDS RETARDATAIRES
+####################
+
+Affiche : 
+  - division du document
+  - division du lecteur
+  - nom du lecteur
+  - code-barres du lecteur
+  - statut (btype) du lecteur
+  - titre du document
+  - code-barres de l'exemplaire
+  - date du prêt initial
+  - date de retour prévue
+Critère : la date de retour prévue est dépassée depuis plus de 90 jours.
+
+####################
+
+select distinct item.location as 'div doc',
+    b.location as 'div lect', 
+    b.name as 'nom', 
+    b.second_id as 'cb lecteur', 
+    b.btype as 'statut lect.', 
+    title.processed as 'titre',
+    item.ibarcode as 'cb ex.',
+    convert(varchar(10),dateadd(dd, item.last_cko_date, convert(date, '01/01/1970')),3) as 'prêt le',
+    convert(varchar(10),dateadd(dd,item.due_date, convert(date, '01/01/1970')),3) as 'retour le'
+from borrower b
+    inner join circ on b.borrower# = circ.borrower#
+    inner join item on item.item# = circ.item#
+    inner join bib on bib.bib# = item.bib#
+    inner join title on title.bib# = bib.bib#
+where (item.due_date + 90) < datediff(dd, '01/01/1970',current_date())
+order by b.location, b.name
