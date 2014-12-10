@@ -6,13 +6,14 @@ Affiche :
   - titre
   - nbre de prêts
 Critères : 
-  - period: N - remplacer N par le numéro de période pré-définie dans l'administration Hz - vf Circulation > Paramètres de circulation > Paramétrer les cycles des stats d'utilisation
-  - location : XX - remplacer par le code de division
-  - stat_type : N - 0=Prêt, 1=Renouvellement, 2=Renouv. par tél., 3=Consultation sur place
-  -stat_count : N - nombre de prêt
+  - period: le numéro de période pré-définie dans l'administration Hz -
+      cf Circulation > Paramètres de circulation > Paramétrer les cycles des stats d'utilisation
+  - location : XX - remplacer par le code de division de la bibliothèque concernée
+  - stat_type : 0=Prêt, 1=Renouvellement, 2=Renouv. par tél., 3=Consultation sur place
+  - stat_count : nombre de prêts
 ####################
 
 select u.bib#, stat_count, processed from usage_stat u
 inner join title t on u.bib# = t.bib#
-where period# = 15 and location = 'X'
+where period# = 15 and location = 'XX'
 and stat_type = 0 and stat_count > 6
