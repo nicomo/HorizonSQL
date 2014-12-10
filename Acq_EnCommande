@@ -1,0 +1,48 @@
+####################
+EN COMMANDE, NON LIVRES
+####################
+
+Affiche : 
+  - bibliothèque
+  - fournisseur
+  - num. BC
+  - num. ligne de commande
+  - titre
+  - isbn
+  - prix unitaire
+  - code de collection
+  - budget
+  - date d'approbation
+  - date de commande
+Critères : 
+  - commandé entre date 1 (mm/jj/aaaa) et date 2 (mm/jj/aaaa)
+  - pas reçu
+  - pas annulé
+  - bibliothèque X
+####################
+
+select  
+    pli.location,
+    v.name,
+    p.po_number,
+    pli.line,
+    pli.item,
+    pl.title,
+    pl.isbn,
+    pl.unit_price,
+    pli.collection,
+    plib.budget,
+    convert(varchar(10),dateadd(dd, pli.approve_date, convert(date, '01/01/1970')),3) AS 'Approuvé le',
+    convert(varchar(10),dateadd(dd, pli.order_date, convert(date, '01/01/1970')),3) AS 'Cmdé le'
+from po_line_item pli
+    inner join po_line_item_budget plib on pli.po# = plib.po# and pli.line = plib.line and pli.item = plib.item
+    inner join po_line pl on pl.po# = pli.po# and pl.line = pli.line
+    inner join po p on pli.po# = p.po#
+    inner join vendor v on p.vendor# = v.vendor#
+where
+    pli.approve_date between datediff (dd, 'Jan 1 1970', convert(datetime,'mm/jj/aaaa'))
+    and datediff (dd, 'Jan 1 1970', convert(datetime,'mm/jj/aaaa'))
+    and pli.receive_date is null
+    and pli.cancel_date is null
+    and pli.location = 'X'
+order by pli.location, v.name, p.po_number, pli.line, pli.item
