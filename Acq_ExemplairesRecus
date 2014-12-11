@@ -1,0 +1,23 @@
+####################
+ITEMS RECUS AVEC SOMMES
+####################
+
+Affiche : 
+  - bibliothèque
+  - budget
+  - somme pour chaque budget
+  - somme totale
+
+Critères : 
+  - reçu entre date 1 (mm/jj/aaaa) et date 2 (mm/jj/aaaa)
+  - ne compte pas les montants des frais (taxes, livraison, etc.)
+
+####################
+
+select location, budget, count(*)
+from po_line_item pl, po_line_item_budget_amount plb
+where pl.po# = plb.po# AND pl.line = plb.line AND plb.item = pl.item
+  and receive_date between datediff (dd, 'Jan 1 1970', convert(datetime,'mm/jj/aaaa')) and datediff (dd, 'Jan 1 1970', convert(datetime,'mm/jj/aaaa'))
+  and extra_charge_type is null 
+group by location, budget
+compute sum(count(*))
