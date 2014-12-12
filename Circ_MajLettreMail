@@ -1,0 +1,18 @@
+####################
+MISE A JOUR LECTEURS - TYPE DE COURRIER RECU
+####################
+
+# pour ts les lecteurs qui ont 
+# un mail
+# et recoivent des lettres standard (send_notice_by = 0)
+# on change pour qu'ils recoivent des mails (send_notice_by = 1)
+
+##
+# Attention cette requête écrit dans la base
+##
+
+####################
+update borrower_address
+set send_notice_by = 1
+where borrower_address.send_notice_by = 0
+    and borrower_address.email_address like '%@%'
