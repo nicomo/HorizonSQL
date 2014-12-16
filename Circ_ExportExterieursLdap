@@ -15,7 +15,7 @@ Affiche :
 Critères :
   - la carte n'a pas été déclarée perdue
   - la liste des types concernés XX, YY
-  - n'a pas déjà un id ldap, qui est mis dans le champ ville1 et à la forme L_0123456 (c'est stupide)
+  - n'a pas déjà un id ldap, qui est mis dans le champ ville1 et a la forme L_0123456 (c'est stupide)
   - le compte n'est pas expiré
   - il a été mis à jour dans les dernières 24h.
 
