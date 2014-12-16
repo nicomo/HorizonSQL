@@ -1,0 +1,36 @@
+####################
+EXPORT DES LECTEURS EXTERIEURS
+####################
+
+Exporter chaque jour un fichier csv des lecteurs extérieurs pour être ajoutés à l'annuaire ldap de l'institution
+
+Affiche : 
+  - le nom, en majuscules, en supprimant les espaces vides à droite et à gauche
+  - le code-barres
+  - la date d'expiration du compte
+  - l'id de l'emprunteur
+  - le code de bibliothèque
+  - le type de lecteur (cas de multiples codes pour les lecteurs extérieurs)
+  
+Critères :
+  - la carte n'a pas été déclarée perdue
+  - la liste des types concernés XX, YY
+  - n'a pas déjà un id ldap, qui est mis dans le champ ville1 et à la forme L_0123456 (c'est stupide)
+  - le compte n'est pas expiré
+  - il a été mis à jour dans les dernières 24h.
+
+####################
+
+select LTrim(RTrim(UPPER(name))) +";"+ 
+    bbarcode +";"+ 
+    LTrim(RTrim(convert(char(11),dateadd (dy, expiration_date,'Jan 1 1970'),103))) + ";"+
+    LTrim(RTrim(convert(char(6),b.borrower#)))+";"+ 
+    location+";"+
+    btype
+from borrower b, borrower_barcode bb
+where b.borrower# = bb.borrower# and bb.lost_date is null
+    and b.btype in ('XX','YY')
+    and b.ville1 not like 'L_%'
+    and datediff(dd,'Jan 1 1970',current_date()) < b.expiration_date
+    and b.last_update_date >= datediff(dd,'Jan 1 1970',current_date()-1)
+order by name
