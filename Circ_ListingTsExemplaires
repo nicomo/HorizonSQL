@@ -1,0 +1,33 @@
+####################
+TOUS LES EXEMPLAIRES D'UNE DIVISION
+####################
+
+Sort un listing de tous les items d'une division à un instant T. 
+
+Affiche : 
+  - division
+  - collection
+  - numéro de notice
+  - type d'exemplaire
+  - statut de l'exemplaire à l'instant T
+  - date de création de l'exemplaire
+  - date de dernier prêt de l'exemplaire
+  - titre
+  - code-barres
+  - nombre total de prêts de l'exemplaire
+Critères : 
+  - location : XX - remplacer par le code de division de la bibliothèque concernée
+####################
+select 
+    location as 'bibli',
+    collection as 'coll',
+    bib#,
+    itype,
+    item_status,
+    convert(varchar(10),dateadd(dd, creation_date, convert(date, '01/01/1970')),3) as 'date creation',
+    convert(varchar(10),dateadd(dd, last_cko_date, convert(date, '01/01/1970')),3) as 'date dernier prêt' ,
+    processed as 'titre',
+    ibarcode as 'code-barres',
+    n_ckos as 'nbre prets'
+from item_with_title
+where location = 'XX'
