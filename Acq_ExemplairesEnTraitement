@@ -1,0 +1,26 @@
+####################
+ITEMS > 90j TOUJOURS EN TRAITEMENT
+####################
+
+Affiche : 
+  - bibliothèque
+  - cote
+  - code-barres
+  - titre
+  - date création de l'exemplaire
+Critères : 
+  - statuts d'item "en traitement"
+  - date de création de plus de 90j
+  - bibliothèque X
+####################
+
+select 
+    location as 'bib',
+    call_reconstructed as 'cote', 
+    ibarcode as 'code-barres', 
+    processed as 'titre',
+    convert(varchar(10),dateadd(dd,creation_date, convert(date, '01/01/1970')),3) as 'date creation'
+from item_with_title
+where (item_status like '%n%' or item_status like '%t%')
+    and creation_date < (datediff(dd,'Jan 1 1970',current_date()) - 90)
+    and location = 'X
