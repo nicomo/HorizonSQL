@@ -1,0 +1,17 @@
+####################
+DOUBLONS DE NOTICES BIBLIOGRAPHIQUES
+####################
+
+Affiche : 
+  - unimarc 001 (numéro de notice)
+  - bib# (numéro de notice interne à Horizon)
+Critères : 
+  - doublon sur le 001
+####################
+
+select 
+  num001,
+  bib# 
+from num001_inverted 
+group by num001 having count(*) > 1
+order by num001, bib#
