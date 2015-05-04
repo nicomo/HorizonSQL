@@ -23,4 +23,4 @@ select
 from item_with_title
 where (item_status like '%n%' or item_status like '%t%')
     and creation_date < (datediff(dd,'Jan 1 1970',current_date()) - 90)
-    and location = 'X
+    and location = 'X'
