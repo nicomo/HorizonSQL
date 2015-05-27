@@ -22,7 +22,7 @@ select fb.text as 'PPN', item.call_reconstructed as '930 $a', fb.bib# as 'L035 $
     where item.location = 'BFMMA'
         and item.item_status != 'X'
         and (fb.tag = '001' and fb.text like 'PPN%')
-        and fb.bib# (select fb2.bib#
+        and fb.bib# not in (select fb2.bib#
             from fullbib fb2
             where fb2.tag = '930'
                 and fb2.text like ('%971012201%')
