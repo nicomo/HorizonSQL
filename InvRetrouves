@@ -1,0 +1,15 @@
+####################
+CHANGE LE STATUT DES ITEMS RETROUVES A L'INVENTAIRE
+####################
+
+Les documents manquants à l'inventaire sont inscrits dans la table inventory_stat avec le statut INVMISS dans le champs inventory_status.
+Cette requête inscrit INVNONE à la place de INVMISS pour les ouvrages retrouvés, identifiés par leur item# (pas par code-barres). Faire donc en amont une requête qui récupère les item# correspondant aux code-barres retrouvés.
+####################
+
+update inventory_stat
+set inventory_status = 'INVNONE'
+where item# in
+	('11111',
+	'22222',
+	.....
+	'nnnnn')
