@@ -1,0 +1,26 @@
+####################
+TITRES RECUS PAR DIVISION ET BUDGET
+####################
+
+Affiche : 
+  - bibliothèque
+  - budget
+  - nbre de titres
+
+Critères : 
+  - reçu entre date 1 (mm/jj/aaaa) et date 2 (mm/jj/aaaa)
+  - ne compte pas les montants des frais (taxes, livraison, etc.)
+
+####################
+
+select location, budget, count(distinct l.title)
+from po_line l, po_line_item pl, po_line_item_budget_amount plb
+where l.po#= pl.po# 
+    and l.line = pl.line 
+    and pl.po# = plb.po# 
+    and pl.line = plb.line 
+    and plb.item = pl.item
+    and receive_date between datediff (dd, 'Jan 1 1970', convert(datetime,'01/01/aaaa')) and datediff (dd, 'Jan 1 1970', convert(datetime,'12/31/aaaa'))
+    and extra_charge_type is null # permet de ne pas comptabiliser les lignes des montants des frais (taxes, livraison, etc.)
+group by location, budget
+compute sum(count(distinct l.title))
