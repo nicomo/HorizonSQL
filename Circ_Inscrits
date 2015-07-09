@@ -4,15 +4,16 @@ INSCRITS APRES UNE CERTAINE DATE
 
 Affiche : 
   - division
+  - type d'usager
   - nbre d'usagers
 Critères : 
   - l'usager a un code-barres
   - date d'expiration du compte supérieure à mm/jj/aaaa
 ####################
 
-select location, count(*)  
+select location, btype, count(*)  
 from borrower
 where borrower# in 
   (select borrower# from borrower_barcode)
   and expiration_date > datediff (dd, 'Jan 1 1970', convert(datetime,'mm/jj/aaaa'))
-group by location
+group by location, btype
