@@ -1,0 +1,19 @@
+####################
+MISE A JOUR LECTEURS - DATE D'EXPIRATION DU COMPTE
+####################
+
+# pour ts les lecteurs qui ont 
+# une date d'expiration XX/XX/XXXX
+# un statut particulier, par ex '3D' pour les doctorants
+# on fixe une nouvelle date d'expiration
+
+##
+# Attention cette requête écrit dans la base
+##
+
+####################
+update borrower
+set expiration_date = datediff (dd, 'Jan 1 1970', convert(datetime,'12/19/2015'))
+where 
+  expiration_date = datediff (dd, 'Jan 1 1970', convert(datetime,'08/31/2015'))
+  and btype = '3D'
