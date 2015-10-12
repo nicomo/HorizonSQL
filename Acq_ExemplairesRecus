@@ -5,8 +5,8 @@ ITEMS RECUS AVEC SOMMES
 Affiche : 
   - bibliothèque
   - budget
-  - somme pour chaque budget
-  - somme totale
+  - items pour chaque budget
+  - somme des items
 
 Critères : 
   - reçu entre date 1 (mm/jj/aaaa) et date 2 (mm/jj/aaaa)
