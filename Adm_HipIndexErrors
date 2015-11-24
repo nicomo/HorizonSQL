@@ -1,0 +1,13 @@
+####################
+ERREURS INDEXATION HIP4
+####################
+
+Affiche les erreurs d'indexation d'HIP.
+Par exemple : 
+461700 2 1 Unable to delete record from index.  Bib key: 254473 Nov 21 2015 12:53AM 0
+461701 2 1 Unable to optimize index for datasource: 3 and partition: 2 and index path: /opt/hip4/hip4/jboss-3/dynix/indexes/ds-3/partition-2 Nov 21 2015 12:53AM 0
+####################
+
+Select * 
+from HIP4..indexing_error 
+where indexing_error_id > (select max(indexing_error_id)-50 from HIP4..indexing_error)
