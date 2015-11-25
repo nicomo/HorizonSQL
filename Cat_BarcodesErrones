@@ -24,4 +24,5 @@ from item_with_title itw
 where ISNUMERIC(itw.ibarcode) <> 1
   and itw.ibarcode not like 'acq%'
   and itw.ibarcode not like 'TMP%'
+  and itw.ibarcode not like 'BFM%'
   and itw.ibarcode is not null
