@@ -1,0 +1,36 @@
+####################
+TOUS LES EXEMPLAIRES DE THESES
+####################
+
+Sort un listing de tous les items des thèses 
+
+Affiche : 
+  - division
+  - collection
+  - numéro de notice
+  - type d'exemplaire
+  - statut de l'exemplaire à l'instant T
+  - date de création de l'exemplaire
+  - date de dernier prêt de l'exemplaire
+  - titre
+  - code-barres
+  - nombre total de prêts de l'exemplaire
+Critères : 
+  - 328 $b existe dans la notice
+
+####################
+
+select
+    location as 'bibli',
+    collection as 'coll',
+    item_with_title.bib#,
+    itype,
+    item_status,
+    convert(varchar(10),dateadd(dd, creation_date, convert(date, '01/01/1970')),3) as 'date creation',
+    convert(varchar(10),dateadd(dd, last_cko_date, convert(date, '01/01/1970')),3) as 'date dernier prêt' ,
+    processed as 'titre',
+    ibarcode as 'code-barres',
+    n_ckos as 'nbre prets'
+from item_with_title
+    inner join bib on item_with_title.bib# = bib.bib#
+where tag='328' and substring (bib.text,1,3) like "%b%"
