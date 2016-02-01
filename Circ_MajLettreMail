@@ -12,7 +12,14 @@ MISE A JOUR LECTEURS - TYPE DE COURRIER RECU
 ##
 
 ####################
-update borrower_address
-set send_notice_by = 1
-where borrower_address.send_notice_by = 0
-    and borrower_address.email_address like '%@%'
+update borrower_address set send_notice_by = 1   
+where email_address IS NOT NULL 
+ AND send_notice_by = 0
+ AND LTRIM(RTRIM(email_address)) LIKE ('_%@_%._%') 
+ AND LTRIM(RTRIM(email_address)) NOT LIKE ('% %')  
+ AND RTRIM(email_address) NOT LIKE ('%.')
+ AND LTRIM(email_address) NOT LIKE ('.%' )
+ AND email_address NOT LIKE ('%@%@%')
+ AND email_address NOT LIKE ('%..%')
+ AND email_address NOT LIKE ('%.@%')
+ AND email_address NOT LIKE ('%@.%')
