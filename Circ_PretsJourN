@@ -1,0 +1,15 @@
+####################
+NB DE PRETS POUR 1 BIB POUR 1 JOUR DONNE
+####################
+
+Affiche : 
+  - nbre de prêts
+Critères : 
+  - location : XX - remplacer par le code de division de la bibliothèque concernée
+  - cko_date : date de prêt
+####################
+
+select count(*) from item_circulation_transaction ict
+inner join item i on ict.item# = i.item#
+where i.location = 'XXXX' and
+ict.cko_date = datediff (dd, 'Jan 1 1970', convert(datetime,'MM/JJ/AAAA'))
