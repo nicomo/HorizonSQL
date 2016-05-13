@@ -1,0 +1,30 @@
+####################
+LISTING D'EXEMPLAIRES PAR CODES DE COLLECTIONS
+####################
+
+Sort un listing d'items pour une série de codes de collections donnée
+
+Affiche : 
+  - division
+  - collection
+  - cote
+  - numéro de notice
+  - statut de l'exemplaire
+  - date de création de l'exemplaire
+  - titre
+Critères : 
+  - la collection de l'exemplaire appartient à la liste XXX ou YYY ou ZZZ
+
+####################
+
+select 
+    location as 'bibli',
+    collection as 'coll',
+    call_reconstructed as 'cote',
+    bib#,
+    item_status as 'statut',
+    convert(varchar(10),dateadd(dd, creation_date, convert(date, '01/01/1970')),3) as 'date creation',
+    processed as 'titre',
+    ibarcode as 'code-barres'
+from item_with_title
+where collection in ('XXX', 'YYY', 'ZZZ')
