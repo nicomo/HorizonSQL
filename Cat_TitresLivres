@@ -1,0 +1,17 @@
+####################
+CATALOGUE, NOMBRE DE TITRES DE LIVRES
+####################
+
+Compte : 
+  - nombre de notices liées à des exemplaires
+Critères : 
+  - a un itype (type d'exemplaire) monographie
+  - n'a pas un item_status (statuts type en commande, perdu, pilonné, etc)
+  - créé avant telle date
+####################
+
+select count(distinct bib#) 
+    from item
+    where itype in ('AL','ALDVD', 'ALDVDEX', 'ALEX', 'BBROCH', 'BBROCHE', 'CRPE', 'TH&ME')
+    	and item_status not in ('dmg','l','m','mi','n','r', 'r2005', 'RE', 't','X')
+    	and creation_date < datediff (dd, 'Jan 1 1970', convert(datetime,'12/31/2015'))
