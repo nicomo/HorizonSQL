@@ -19,11 +19,12 @@ Critères :
   - la liste des types concernés XX, YY
   - le compte n'est pas expiré
   - il a été mis à jour ou créé dans les dernières 24h.
+  - le compte a un email
 
 ####################
 
 select 
-	LTrim(RTrim(UPPER(name))) +";"+ 
+	LTrim(RTrim(UPPER(name_reconstructed))) +";"+ 
 	LTrim(RTrim(convert(char(11),dateadd (dy, birth_date,'Jan 1 1970'),103))) + ";"+
 	LTrim(RTrim(bbarcode)) +";"+ 
 	LTrim(RTrim(convert(char(11),dateadd (dy, expiration_date,'Jan 1 1970'),103))) + ";"+
