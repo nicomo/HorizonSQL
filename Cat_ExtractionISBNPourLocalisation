@@ -21,12 +21,12 @@ Critères :
 ####################
 
 select
-	iwt.call_reconstructed + '#####' as 'Cote', 
-	convert(varchar(10), fb.bib#) + '#####' as 'bib#', 
-	iwt.processed + '#####' as 'titre', 
-	iwt.location + '#####'  as 'division',
-	iwt.itype + '#####' as 'type',
-        fb.text + '#####' as 'ISBN'
+	iwt.call_reconstructed + '#' as 'Cote', 
+	convert(varchar(10), fb.bib#) + '#' as 'bib#', 
+	iwt.processed + '#' as 'titre', 
+	iwt.location + '#'  as 'division',
+	iwt.itype + '#' as 'type',
+        fb.text + '#' as 'ISBN'
 from fullbib fb
 	inner join item_with_title iwt on fb.bib# = iwt.bib#
 where iwt.location = 'BFMMA'
