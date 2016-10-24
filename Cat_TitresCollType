@@ -1,0 +1,17 @@
+####################
+NBRE DE TITRES D'UNE COLLECTION
+####################
+
+Compte le nombre de notices
+qui ont des exemplaires : 
+  - dans une (liste de) collection(s)
+  - d'un certain type (par ex. les types pour Livres)
+  - dans certaines bibliothèques
+
+####################
+
+select count(distinct bib#)
+from item
+where collection in ('KBU1FR', 'KBU0FR', 'KBUOUFR', 'KBUMFR', 'KBUPFR', 'MBUFR', 'MBUFRA', 'MBUFRM', 'MBUFRT')
+    and itype in ('AL', 'ALDVD', 'ALDVDEX', 'ALEX', 'ALUSU')
+    and location in ('BUGA', 'IUTGA', 'BFMGA', 'BUMA', 'BFMMA')
