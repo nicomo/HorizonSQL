@@ -1,0 +1,21 @@
+####################
+PERIOS AVEC ABOS MORTS
+####################
+Affiche : 
+  - bib#
+  - media_type
+  - titre
+Critères : notices ayant un ou plusieurs "abonnements" non actuellement reçus dans une division 
+    mais aucun abonnement en cours dans cette même division
+
+####################
+
+select distinct bib#, media_type, dbo.refbib(bib#) 
+from copy 
+where location = 'X' 
+  and acq_status != 4
+  and bib# not in 
+    (select bib# 
+    from copy 
+    where location = 'X' 
+      and acq_status = 4)
