@@ -1,0 +1,22 @@
+####################
+NOMBRE DE TITRE D'UNE LANGUE DONNEE DANS UNE COLLECTION DONNEE
+####################
+
+Pour le Fonds Régional par exemple, combien de titres sont en Français.
+
+Affiche : 
+  - nombre de notices distinctes
+Critères : 
+  - il y a un exemplaire de la collection XXXX, ou YYYY, ou ZZZZ
+  - dont le statut n'est pas pilonné
+  - il y a le code de langue nnn dans le 101 de la notice
+
+####################
+
+select distinct convert(varchar(10), fb.bib#) + '#' as 'bib#'
+from fullbib fb
+	inner join item_with_title iwt on fb.bib# = iwt.bib#
+where iwt.collection in  ('MBUFR', 'MBUFRM', 'KBU1FR', 'KBUFR', 'KBU0FR', 'KBUMFR')
+	and iwt.item_status != 'X'
+	and item_status not in ('dmg','l','m','mi','n','r', 'r2005', 'RE', 't','X')
+	and (fb.tag = '101' and fb.text like '%fre%')
