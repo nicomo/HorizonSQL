@@ -1,0 +1,32 @@
+####################
+COMPARER LES ACQ. D'UNE COLL. AVEC UNE AUTRE
+####################
+
+Affiche : 
+  - bibliothèque A
+  - titre
+  - date de création de l'exemplaire
+  - cote
+Critères : 
+  - bibliothèque A
+  - code de collection X (dans la bibliothèque A)
+  - commandé entre date 1 (mm/jj/aaaa) et date 2 (mm/jj/aaaa)
+  - sous cette la notice il y a aussi 1 exemplaire dans :
+    - bibliothèques B, C, D
+####################
+
+select location, 
+	collection, 
+	processed, 
+	convert(varchar(10),dateadd(dd, creation_date, convert(date, '01/01/1970')),3),
+	call_reconstructed
+from item_with_title iwt
+where location = 'BUMA'
+	and collection = 'MBUFR'
+	and creation_date between datediff (dd, 'Jan 1 1970', convert(datetime,'01/01/2015'))
+	    and datediff (dd, 'Jan 1 1970', convert(datetime,'12/31/2016'))
+	and bib# in (
+		select bib#
+		from item_with_title iwt2
+		where location in ('BUGA', 'BFMGA', 'IUTGA')
+		)
