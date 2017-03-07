@@ -1,0 +1,33 @@
+####################
+NBRE DE PRETS PAR USAGER ET COLLECTION
+####################
+
+Compte le nombre de prêts 
+  - par catégorie d'usager 
+  - pour une collection donnée 
+  - dans une année donnée
+S'appuie sur les infos stockées dans la vue stat_ext_full_stat
+
+####################
+
+select btype, item_loc, collistat, sum(comptage) 
+  from stat_ext_full_stat
+  where an = 2016
+  group by btype, item_loc, collistat
+  order by btype, item_loc, collistat
+
+####################
+
+Résultat attendu
+
+btype   item_loc collistat             
+-----   -------- --------- ----------- 
+1L      BFMGA    KBFACQ              1 
+1L      BFMGA    KBFANN             38 
+1L      BFMGA    KBFART             21 
+1L      BFMGA    KBFBIO              9 
+1L      BFMGA    KBFBUL              4 
+1L      BFMGA    KBFEPS             12 
+1L      BFMGA    KBFFRA             36 
+1L      BFMGA    KBFGEN             27 
+.../...
