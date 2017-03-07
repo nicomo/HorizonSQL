@@ -1,0 +1,35 @@
+####################
+NBRE DE PRETS PAR USAGER (BSTAT) ET COLLECTION
+####################
+
+Compte le nombre de prêts 
+  - par catégorie statistique d'usager 
+  - pour une collection donnée 
+  - dans une année donnée
+S'appuie sur les infos stockées dans la vue stat_ext_full_stat
+
+####################
+
+select bstats, item_loc, collistat, sum(comptage) 
+  from stat_ext_full_stat
+  where an = 2016
+  group by bstats, item_loc, collistat
+  order by bstats, item_loc, collistat
+
+####################
+
+Résultat attendu
+
+bstats  item_loc collistat             
+-----   -------- --------- ----------- 
+M7MAT6 BUMA     MBU2LTG             1 
+M7PLC4 BFMMA    MBFMAT              2 
+M7PLC4 BFMMA    MBFPER              2 
+MD1    BFMMA    MBFART             15 
+MD1    BFMMA    MBFAV               7 
+MD1    BFMMA    MBFCO             236 
+MD1    BFMMA    MBFEPS             22 
+MD1    BFMMA    MBFFRA             61 
+MD1    BFMMA    MBFGEN              2 
+
+.../...
