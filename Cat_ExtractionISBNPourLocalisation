@@ -30,7 +30,7 @@ select
 from fullbib fb
 	inner join item_with_title iwt on fb.bib# = iwt.bib#
 where iwt.location = 'BFMMA'
-	and iwt.item_status != 'X'
+	and iwt.item_status not in ('X', 'm', 'dmg', 'l', 'mi', 'n', 'r', 't')
 	and (fb.tag = '010' and fb.text like '%a%')
 	and fb.bib# not in (select fb2.bib# 
 		from fullbib fb2 
